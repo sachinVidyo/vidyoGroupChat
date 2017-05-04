@@ -58,8 +58,8 @@ class VideoRendererController {
   connectVidyo(vidyoConnector) {
     vidyoConnector.Connect({
       host: "prod.vidyo.io",
-      token: "cHJvdmlzaW9uAHNhY2hpbkBlOGQ5YTMudmlkeW8uaW8ANjM2NjE1NzczNDUAADEyODk2YTc4ODc3MTY3MDFhNzNmYjg4MWNiZWY5ODhiZjRkZTkxMDcyZjI1NTY3ZmJjNDdkNjg1MGJiMGMwN2JmYjZkMjA5Yzk4YmFlMzhjZTNlOWYwM2U2ZDhjNTZkMQ==",
-      displayName: "sachin1",
+      token: "cHJvdmlzaW9uAHNhY2hpbkBlOGQ5YTMudmlkeW8uaW8ANjM2NjE3NTIzNzYAADUxNzg5NDk2NWM5NmM3NmM5N2UzOWEzNTdjYTIyY2VjZDQ5Mzc3NzRmMzIyODk0YzQ3NmVmNjkzMjM4ZTM5YTQyODkxMzQyZDUyOWZhMGJlNDY5OTMzZDQ3YTQzMzRkMw==",
+      displayName: "User2",
       resourceId: "SachinRoom",
 
       onSuccess: () => {
