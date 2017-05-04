@@ -1,0 +1,33 @@
+<div class="sidebar-view pull-left">
+    <div class="p-l-15 p-r-15 logo">
+        <h3></h3>
+    </div>
+    <div class="thin-view">
+      <hr>
+        <center>Live Video</center>
+      <hr>
+    </div>
+
+    <div class="p-l-15 p-r-15">
+        <button class="btn"><img ng-src="app/img/camera.png"/></button>
+        <button class="btnMic">Mic</button>
+        <button class="btn" ng-disabled="$ctrl.isWorking" ng-class="{'btn-info': !$ctrl.isConnected, 'btn-danger': $ctrl.isConnected}" ng-click="$ctrl.toggleConnect()">{{$ctrl.isConnected? 'Disconnect' : 'Connect'}}</button>
+    </div>
+    <hr>
+    <div class="participant-list">
+        <div class="p-l-15 p-r-15">
+            <h4>Participants</h4>
+        </div>
+        <hr>
+        <div class="p-l-15 p-r-15" ng-if="$ctrl.users.length == 0">
+            <p>No users</p>
+        </div>
+        <ul class="list-unstyled participants">
+            <li ng-repeat="user in $ctrl.users">{{user.name}}</li>
+        </ul>
+    </div>
+    <div class="bottom-view">
+      <hr>
+      <a href class="open-chat" ng-click="$ctrl.openChatWindow()"><i class="fa fa-comment-o"></i></a>
+    </div>
+</div>

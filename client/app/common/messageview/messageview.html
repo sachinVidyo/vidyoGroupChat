@@ -1,0 +1,17 @@
+<div class="message-view container-fluid">
+  <h3>Messages</h3>
+  <div class="messages">
+    <p class="no-messages text-muted" ng-if="$ctrl.messages.length == 0">No messages</p>
+    <div ng-repeat="message in $ctrl.messages">
+      <div class="card" ng-class="{'pull-left': message.id, 'pull-right': !message.id}">
+        <h5 ng-if="message.name"><strong>{{message.name}}:</strong></h5>
+        <p>{{message.content}}</p>
+      </div>
+    </div>
+  </div>
+  <form name="messageBoxForm" class="message-box">
+    <input type="text" name="message" class="form-control" placeholder="Type message here..." ng-model="$ctrl.messageInfo.content" ng-required="true"/>
+    <button type="button" class="btn btn-primary" ng-disabled="messageBoxForm.$invalid" ng-click="$ctrl.sendMessage()">Send</button>
+  </form>
+  <a href class="close-chat" ng-click="$ctrl.closeChatWindow()"><i class="fa fa-times"></i></a>
+</div>

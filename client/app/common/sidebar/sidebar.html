@@ -1,0 +1,43 @@
+<div class="sidebar-view pull-left">
+  <div class="p-l-15 p-r-15 logo">
+      <h3></h3>
+  </div>
+  <div>
+    <hr>
+      <center>Live Video</center>
+    <hr>
+  </div>
+  <div class="control-button">
+    <button class="btn btn-default btn-control" ng-click="$ctrl.toggleCamera()">
+        <img src="{{$ctrl.muteCamera? '/assets/icons/camera_off.svg' : '/assets/icons/camera.svg'}}"/>
+    </button>
+    <button class="btn btn-default btn-control" ng-click="$ctrl.toggleMic()">
+        <img src="{{$ctrl.muteMic? '/assets/icons/mic_off.svg' : '/assets/icons/mic.svg'}}"/>
+    </button>
+      <button class="btn btn-default btn-control" ng-disabled="$ctrl.isWorking" ng-click="$ctrl.toggleConnect()">
+          <img src="{{$ctrl.isConnected? '/assets/icons/disconnect.svg' : '/assets/icons/connect.png'}}"/>
+      </button>
+  </div>
+  <hr>
+    <div class="participant-list">
+      <div class="p-l-15 p-r-15">
+          <h4>Participants</h4>
+      </div>
+      <hr>
+        <div class="p-l-15 p-r-15" ng-if="$ctrl.users.length == 0">
+            <p>No users</p>
+        </div>
+        <ul class="list-unstyled participants">
+            <li ng-repeat="user in $ctrl.users">{{user.name}}</li>
+        </ul>
+    </div>
+    <div class="bottom-view">
+      <hr>
+      <div class="p-l-15 p-r-15">
+      <button class="btn btn-default btn-chat" ng-click="$ctrl.openChatWindow()">
+          <img src="{{'/assets/icons/chat.png'}}"/>
+      </button>
+      </div>
+      <!-- <a href class="open-chat" ng-click="$ctrl.openChatWindow()"><i class="fa fa-comment-o"></i></a> -->
+    </div>
+</div>

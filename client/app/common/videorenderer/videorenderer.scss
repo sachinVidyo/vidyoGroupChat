@@ -1,0 +1,13 @@
+.video-area {
+  height: 60vh;
+  overflow: auto;
+
+  &.expanded {
+    height: 100vh;
+  }
+
+  #renderer {
+    height: 100%;
+    width:100%;
+  }
+}
