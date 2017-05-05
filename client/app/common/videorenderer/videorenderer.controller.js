@@ -4,6 +4,7 @@ class VideoRendererController {
     this.$rootScope = $rootScope;
     this.listenEvent();
     this.listenConnectionChangeOrder();
+    this.loadVidyoClientLibrary();
   }
 
   listenConnectionChangeOrder() {
@@ -53,7 +54,7 @@ class VideoRendererController {
         userData:""
       }).then((vidyoConnector) => {
         this.$rootScope.vidyoConnector = vidyoConnector;
-        this.connectVidyo(vidyoConnector);
+        //this.connectVidyo(vidyoConnector);
       }).catch(() => {
         console.error("CreateVidyoConnector Failed");
       });
