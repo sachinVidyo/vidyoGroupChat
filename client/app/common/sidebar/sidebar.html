@@ -4,7 +4,8 @@
   </div>
   <div>
     <hr>
-      <center>Live Video</center>
+      <center class="live-text" ng-if="$ctrl.isConnected">Live Video</center>
+      <center ng-if="!$ctrl.isConnected">Connect to Live Video</center>
     <hr>
   </div>
   <div class="control-button">
@@ -25,7 +26,7 @@
       </div>
       <hr>
         <div class="p-l-15 p-r-15" ng-if="$ctrl.users.length == 0">
-            <p>No users</p>
+            <p>No other users</p>
         </div>
         <ul class="list-unstyled participants">
             <li ng-repeat="user in $ctrl.users">{{user.name}}</li>

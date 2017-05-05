@@ -18,6 +18,22 @@ class VideoRendererController {
     this.$rootScope.$on('connection:off', () => {
       this.disconnectVidyo(this.$rootScope.vidyoConnector);
     });
+
+    this.$rootScope.$on('micMute:on', () => {
+      this.$rootScope.vidyoConnector.SetMicrophonePrivacy(true);
+    });
+
+    this.$rootScope.$on('micMute:off', () => {
+      this.$rootScope.vidyoConnector.SetMicrophonePrivacy(false);
+    });
+
+    this.$rootScope.$on('cameraMute:on', () => {
+      this.$rootScope.vidyoConnector.SetCameraPrivacy(true);
+    });
+
+    this.$rootScope.$on('cameraMute:off', () => {
+      this.$rootScope.vidyoConnector.SetCameraPrivacy(false);
+    });
   }
 
   listenEvent() {
@@ -56,11 +72,15 @@ class VideoRendererController {
   }
 
   connectVidyo(vidyoConnector) {
+    console.log('tttt',this.$rootScope.user.token);
+    console.log('tttt',this.$rootScope.user.name);
+    console.log('tttt',this.$rootScope.user.roomId);
+
     vidyoConnector.Connect({
       host: "prod.vidyo.io",
-      token: "cHJvdmlzaW9uAHNhY2hpbkBlOGQ5YTMudmlkeW8uaW8ANjM2NjE3NTIzNzYAADUxNzg5NDk2NWM5NmM3NmM5N2UzOWEzNTdjYTIyY2VjZDQ5Mzc3NzRmMzIyODk0YzQ3NmVmNjkzMjM4ZTM5YTQyODkxMzQyZDUyOWZhMGJlNDY5OTMzZDQ3YTQzMzRkMw==",
-      displayName: "User2",
-      resourceId: "SachinRoom",
+      token: this.$rootScope.user.token ||"cHJvdmlzaW9uAHRlc3R1c2VyQGU4ZDlhMy52aWR5by5pbwA2MzY2MTgzMDM1MwAAYmJlNjIwMzU1YjlkOWFhMmVmMjYxODZmYjYyMDRmYzI1NjJmMTdjNTU5YzgxNGMxNDkwMmU0N2FhYzI2ZjJiNWI0ZGM0MWFmNmM4Y2I1Y2Y5ZTkxZmMxZTA2Njc1OTY2",
+      displayName: this.$rootScope.user.name || 'testuser',
+      resourceId: this.$rootScope.user.roomId || 'KPDemoRoom',
 
       onSuccess: () => {
         /* Connected */

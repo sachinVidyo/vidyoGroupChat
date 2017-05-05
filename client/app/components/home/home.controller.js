@@ -1,10 +1,16 @@
 class HomeController {
-  constructor($timeout) {
+  constructor($timeout, $stateParams, $rootScope) {
     this.$timeout = $timeout;
     this.name = 'home';
     this.users = [];
     this.messages = [];
     this.isChatOpened = false;
+
+    $rootScope.user = {
+      name: $stateParams.name,
+      roomId: $stateParams.roomId,
+      token: $stateParams.token
+    };
   }
 
   addUser(user) {
@@ -58,6 +64,6 @@ class HomeController {
   }
 }
 
-HomeController.$inject = ['$timeout'];
+HomeController.$inject = ['$timeout', '$stateParams', '$rootScope'];
 
 export default HomeController;

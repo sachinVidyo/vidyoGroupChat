@@ -43,9 +43,9 @@ class SidebarController {
 
   toggleCamera() {
     if (!this.muteCamera) {
-      this.$rootScope.$broadcast('micCamera:on');
+      this.$rootScope.$broadcast('cameraMute:on');
     } else {
-      this.$rootScope.$broadcast('micCamera:off');
+      this.$rootScope.$broadcast('cameraMute:off');
     }
     this.muteCamera = !this.muteCamera;
   }
