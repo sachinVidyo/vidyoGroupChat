@@ -13,7 +13,7 @@ let homeModule = angular.module('home', [
 
   $stateProvider
     .state('home', {
-      url: '/?name&roomId&token',
+      url: '/?displayName&roomId&token',
       component: 'home'
     });
 })

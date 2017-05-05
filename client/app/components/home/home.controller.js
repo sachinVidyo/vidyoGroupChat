@@ -7,7 +7,7 @@ class HomeController {
     this.isChatOpened = false;
 
     $rootScope.user = {
-      name: $stateParams.name,
+      name: $stateParams.displayName,
       roomId: $stateParams.roomId,
       token: $stateParams.token
     };
