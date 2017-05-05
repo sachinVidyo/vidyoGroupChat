@@ -25,7 +25,7 @@
           <h4>Participants</h4>
       </div>
       <hr>
-        <div class="p-l-15 p-r-15" ng-if="$ctrl.users.length == 0">
+        <div class="p-l-15 p-r-15" ng-if="$ctrl.users.length == 0 && $ctrl.isConnected">
             <p>No other users</p>
         </div>
         <ul class="list-unstyled participants">
