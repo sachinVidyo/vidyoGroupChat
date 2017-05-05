@@ -62,9 +62,27 @@ class VideoRendererController {
   }
 
   loadVidyoClientLibrary() {
+    var webrtc = true;
+    var plugin = false;
+
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    var isFirefox = userAgent.indexOf("Firefox") != -1;
+		var isChrome = userAgent.indexOf("Chrome") != -1;
+
+		if (isChrome || isFirefox) {
+			/* Supports WebRTC */
+			webrtc = true;
+      plugin = false;
+      console.log('Either chrome or Firefox');
+		} else  {
+			plugin = true;
+      webrtc = false;
+      console.log('Not chrome or Firefox');
+		}
+
 		var script = document.createElement('script');
 		script.type = 'text/javascript';
-		script.src = 'https://static.vidyo.io/4.1.11.4/javascript/VidyoClient/VidyoClient.js?onload=onVidyoClientLoaded';
+		script.src = 'https://static.vidyo.io/4.1.11.4/javascript/VidyoClient/VidyoClient.js?onload=onVidyoClientLoaded&webrtc=' + webrtc + '&plugin=' + plugin;
 		document.getElementsByTagName('head')[0].appendChild(script);
 	}
 
@@ -73,13 +91,13 @@ class VideoRendererController {
   }
 
   connectVidyo(vidyoConnector) {
-    console.log('tttt',this.$rootScope.user.token);
-    console.log('tttt',this.$rootScope.user.name);
-    console.log('tttt',this.$rootScope.user.roomId);
+    console.log('passed in token',this.$rootScope.user.token);
+    console.log('passed in user name',this.$rootScope.user.name);
+    console.log('passed in room id',this.$rootScope.user.roomId);
 
     vidyoConnector.Connect({
       host: "prod.vidyo.io",
-      token: this.$rootScope.user.token ||"cHJvdmlzaW9uAHRlc3R1c2VyQGU4ZDlhMy52aWR5by5pbwA2MzY2MTgzMDM1MwAAYmJlNjIwMzU1YjlkOWFhMmVmMjYxODZmYjYyMDRmYzI1NjJmMTdjNTU5YzgxNGMxNDkwMmU0N2FhYzI2ZjJiNWI0ZGM0MWFmNmM4Y2I1Y2Y5ZTkxZmMxZTA2Njc1OTY2",
+      token: this.$rootScope.user.token ||"cHJvdmlzaW9uAHRlc3R1c2VyQGU4ZDlhMy52aWR5by5pbwA2MzY2MTgzODczNQAANjM5NjYwYTlmYThjMDMyYzk2ODMwMGFlOTZmYjQzYzVmZWY3MTczZDVjNTFiMGJiMTIyMGI1OTQyMDQ1NGYwY2MzOWMwMDdjMzUzOTdkOTMwY2ZlZjg2YjJlY2FlOWNi",
       displayName: this.$rootScope.user.name || 'testuser',
       resourceId: this.$rootScope.user.roomId || 'KPDemoRoom',
 
