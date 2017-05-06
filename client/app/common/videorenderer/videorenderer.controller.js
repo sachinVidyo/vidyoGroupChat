@@ -2,6 +2,8 @@ class VideoRendererController {
   constructor($timeout, $rootScope) {
     this.$timeout = $timeout;
     this.$rootScope = $rootScope;
+    this.isLoading = true;
+    this.isConnectionError = false;
     this.listenEvent();
     this.listenConnectionChangeOrder();
     this.loadVidyoClientLibrary();
@@ -54,9 +56,11 @@ class VideoRendererController {
         userData:""
       }).then((vidyoConnector) => {
         this.$rootScope.vidyoConnector = vidyoConnector;
-        //this.connectVidyo(vidyoConnector);
+        this.connectVidyo(vidyoConnector);
       }).catch(() => {
         console.error("CreateVidyoConnector Failed");
+        this.isLoading = false;
+        this.isConnectionError = true;
       });
     });
   }
@@ -108,6 +112,7 @@ class VideoRendererController {
       },
       onFailure: (reason) => {
         /* Failed */
+        this.isConnectionError = true;
         console.log('failed! The reason: ', reason);
       },
       onDisconnected: (reason) => {
@@ -116,13 +121,17 @@ class VideoRendererController {
         this.$rootScope.$broadcast('connectedStatus', { isConnected: false });
       }
     }).then((status) => {
+      this.isLoading = false;
       if (status) {
         this.handlePaticipants(vidyoConnector);
         this.receiveMessage(vidyoConnector);
       } else {
+        this.isConnectionError = true;
         console.error("ConnectCall Failed");
       }
     }).catch(() => {
+      this.isConnectionError = true;
+      this.isLoading = false;
       console.error("ConnectCall Failed");
     });
   }
