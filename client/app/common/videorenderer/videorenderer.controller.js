@@ -3,6 +3,8 @@ class VideoRendererController {
     this.$timeout = $timeout;
     this.$rootScope = $rootScope;
     this.isLoading = true;
+    this.isConnected = false;
+    this.roomId = "";
     this.isConnectionError = false;
     this.listenEvent();
     this.listenConnectionChangeOrder();
@@ -99,6 +101,7 @@ class VideoRendererController {
     console.log('passed in user name',this.$rootScope.user.name);
     console.log('passed in room id',this.$rootScope.user.roomId);
 
+    this.roomId = this.$rootScope.user.roomId || 'KPDemoRoom';
     vidyoConnector.Connect({
       host: "prod.vidyo.io",
       token: this.$rootScope.user.token ||"cHJvdmlzaW9uAHRlc3R1c2VyQGU4ZDlhMy52aWR5by5pbwA2MzY2MTgzODczNQAANjM5NjYwYTlmYThjMDMyYzk2ODMwMGFlOTZmYjQzYzVmZWY3MTczZDVjNTFiMGJiMTIyMGI1OTQyMDQ1NGYwY2MzOWMwMDdjMzUzOTdkOTMwY2ZlZjg2YjJlY2FlOWNi",
@@ -108,6 +111,7 @@ class VideoRendererController {
       onSuccess: () => {
         /* Connected */
         console.log('connected!');
+        this.isConnected = true;
         this.$rootScope.$broadcast('connectedStatus', { isConnected: true });
       },
       onFailure: (reason) => {
@@ -117,6 +121,7 @@ class VideoRendererController {
       },
       onDisconnected: (reason) => {
         /* Disconnected */
+        this.isConnected = false;
         console.log('disconnected! Reason: ', reason);
         this.$rootScope.$broadcast('connectedStatus', { isConnected: false });
       }

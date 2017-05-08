@@ -34,10 +34,17 @@
     </div>
     <div class="bottom-view">
       <hr>
-      <div class="p-l-15 p-r-15">
-      <button class="btn btn-default btn-chat" ng-click="$ctrl.openChatWindow()">
-          <img src="{{'/assets/icons/chat.png'}}"/>
-      </button>
+      <div class="control-button">
+        <button class="btn btn-default btn-control" ng-disabled=1>
+           <img src="{{'/assets/icons/share.png'}}"/>
+        </button>
+        <button class="btn btn-default btn-control" ng-disabled=1>
+            <img src="{{'/assets/icons/PIP.png'}}"/>
+        </button>
+          <button class="btn btn-default btn-control" ng-click="$ctrl.openChatWindow()">
+              <img src="{{'/assets/icons/chat.png'}}"/>
+          </button>
+      </div>
       </div>
       <!-- <a href class="open-chat" ng-click="$ctrl.openChatWindow()"><i class="fa fa-comment-o"></i></a> -->
     </div>
