@@ -104,9 +104,9 @@ class VideoRendererController {
     this.roomId = this.$rootScope.user.roomId || 'KPDemoRoom';
     vidyoConnector.Connect({
       host: "prod.vidyo.io",
-      token: this.$rootScope.user.token ||"cHJvdmlzaW9uAHRlc3R1c2VyQGU4ZDlhMy52aWR5by5pbwA2MzY2MTgzODczNQAANjM5NjYwYTlmYThjMDMyYzk2ODMwMGFlOTZmYjQzYzVmZWY3MTczZDVjNTFiMGJiMTIyMGI1OTQyMDQ1NGYwY2MzOWMwMDdjMzUzOTdkOTMwY2ZlZjg2YjJlY2FlOWNi",
-      displayName: this.$rootScope.user.name || 'testuser',
-      resourceId: this.$rootScope.user.roomId || 'KPDemoRoom',
+      token: this.$rootScope.user.token,
+      displayName: this.$rootScope.user.name,
+      resourceId: this.$rootScope.user.roomId,
 
       onSuccess: () => {
         /* Connected */
@@ -144,7 +144,6 @@ class VideoRendererController {
   receiveMessage(vidyoConnector) {
     vidyoConnector.RegisterMessageEventListener({
       onChatMessageReceived: (participant, chatMessage) => {
-        console.log('********', chatMessage);
         this.onSendMessage({ id: participant.id, name: participant.name, content: chatMessage.body });
       }
     }).then(() => {
