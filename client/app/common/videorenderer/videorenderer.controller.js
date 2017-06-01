@@ -109,18 +109,18 @@ class VideoRendererController {
       resourceId: this.$rootScope.user.roomId,
 
       onSuccess: () => {
-        /* Connected */
+        // Connected
         console.log('connected!');
         this.isConnected = true;
         this.$rootScope.$broadcast('connectedStatus', { isConnected: true });
       },
       onFailure: (reason) => {
-        /* Failed */
+        // Failed
         this.isConnectionError = true;
         console.log('failed! The reason: ', reason);
       },
       onDisconnected: (reason) => {
-        /* Disconnected */
+        // Disconnected
         this.isConnected = false;
         console.log('disconnected! Reason: ', reason);
         this.$rootScope.$broadcast('connectedStatus', { isConnected: false });

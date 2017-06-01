@@ -1,23 +1,17 @@
-<sidebar 
+<sidebar
   users="$ctrl.users"
   on-open-chat="$ctrl.openChatWindow()"></sidebar>
 
 <div class="main-content pull-right">
-
-  <!--<replaceable 
-    on-add-user="$ctrl.addUser({ id: id, name: name })" 
-    on-remove-user="$ctrl.removeUser({ id: id, name: name })"
-    on-send-message="$ctrl.sendMessage({ id: id, name: name, content: content })"
-    is-chat-opened="$ctrl.isChatOpened"></replaceable>-->
-  <video-renderer 
+<video-renderer 
     is-chat-opened="$ctrl.isChatOpened"
     on-add-user="$ctrl.addUser({ id: id, name: name })"
     on-remove-user="$ctrl.removeUser({ id: id, name: name })"
     on-send-message="$ctrl.sendMessage({ id: id, name: name, content: content })"></video-renderer>
 
-  <message-view 
+  <message-view
     messages="$ctrl.messages"
     on-close-chat="$ctrl.closeChatWindow()"
-    on-send-message="$ctrl.sendMessage({ id: id, name: name, content: content })" 
+    on-send-message="$ctrl.sendMessage({ id: id, name: name, content: content })"
     ng-if="$ctrl.isChatOpened"></message-view>
 </div>
