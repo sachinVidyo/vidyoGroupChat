@@ -1,4 +1,4 @@
-# Multiparty Video Chat Application using AngularJS and Vidyo.IO
+# Multiparty Video Chat Application using AngularJS and Vidyo.io
 
 Vidyo.io AngularJS app showing how to write a web application that has the following features -
 * Connecting Vidyo.IO to your AngularJS app
