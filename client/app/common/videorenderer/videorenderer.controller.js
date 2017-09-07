@@ -101,7 +101,7 @@ class VideoRendererController {
     console.log('passed in user name',this.$rootScope.user.name);
     console.log('passed in room id',this.$rootScope.user.roomId);
 
-    this.roomId = this.$rootScope.user.roomId || 'KPDemoRoom';
+    this.roomId = this.$rootScope.user.roomId || 'demoRoom';
     vidyoConnector.Connect({
       host: "prod.vidyo.io",
       token: this.$rootScope.user.token,
