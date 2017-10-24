@@ -22,12 +22,26 @@ class SidebarController {
     this.onOpenChat();
   }
 
+  requestImage() {
+    if (!this.$rootScope.vidyoConnector) {
+      alert('You are not connected to Group chat yet!');
+    } else {
+      var message = '{ "type": "SnapshotRequest",' +
+                      '"targetId": "Sachin@e8d9a3.vidyo.io", ' +
+                      '"sourceId": "xyz" }';
+      this.$rootScope.vidyoConnector.SendChatMessage(message);
+    }
+  }
+
   toggleConnect() {
     if (!this.isConnected) {
       this.isWorking = true;
       this.$rootScope.$broadcast('connection:on');
     } else {
       this.isWorking = true;
+      var message = '{ "type": "Control",' +
+                      '"subType": "DisconnectAll"}';
+      this.$rootScope.vidyoConnector.SendChatMessage(message);
       this.$rootScope.$broadcast('connection:off');
     }
   }

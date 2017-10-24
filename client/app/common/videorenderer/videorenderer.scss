@@ -1,13 +1,36 @@
 .video-area {
   height: 60vh;
-  overflow: auto;
+  overflow: hidden;
 
   &.expanded {
     height: 100vh;
   }
 
   #renderer {
-    height: 96%;
-    width:100%;
+    height: 90%;
+    width:50%;
+    float: left;
+    &.expandedWidth {
+      width:100%;
+    }
   }
+  #snapshot {
+    height: 100%;
+    width:45%;
+    float: right;
+
+    .close-snaphot {
+      position: absolute;
+      top: 15px;
+      font-size: 20px;
+      color: #555;
+      right: 15px;
+    }
+  }
+
+  #snapshotImage {
+    width:100%;
+    margin:10px 10px;
+  }
+
 }

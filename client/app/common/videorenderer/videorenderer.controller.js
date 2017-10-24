@@ -5,10 +5,15 @@ class VideoRendererController {
     this.isLoading = true;
     this.isConnected = false;
     this.roomId = "";
+    this.urlImage = "";
+    this.showSnapshotImage = false;
     this.isConnectionError = false;
     this.listenEvent();
     this.listenConnectionChangeOrder();
     this.loadVidyoClientLibrary();
+    console.log('VideoRendererController constructor');
+
+
   }
 
   listenConnectionChangeOrder() {
@@ -39,31 +44,41 @@ class VideoRendererController {
     this.$rootScope.$on('cameraMute:off', () => {
       this.$rootScope.vidyoConnector.SetCameraPrivacy(false);
     });
+
+    this.$rootScope.$on('vidyoConnector:remove', () => {
+      console.log('Received vidyoConnector remove event');
+      this.$rootScope.vidyoConnector.Disable();
+      this.$rootScope.vidyoConnector = null;
+    });
   }
 
   listenEvent() {
+
     document.addEventListener('vidyoclient:ready', (e) => {
+      console.log('GOT READY EVENT');
       this.renderVideo(e.detail);
     });
   }
 
   renderVideo(VC) {
     this.$timeout(() => {
-      VC.CreateVidyoConnector({
-        viewId: "renderer",                            // Div ID where the composited video will be rendered, see VidyoConnector.html
-        viewStyle: "VIDYO_CONNECTORVIEWSTYLE_Default", // Visual style of the composited renderer
-        remoteParticipants: 16,                        // Maximum number of participants
-        logFileFilter: "warning all@VidyoConnector info@VidyoClient",
-        logFileName:"",
-        userData:""
-      }).then((vidyoConnector) => {
-        this.$rootScope.vidyoConnector = vidyoConnector;
-        this.connectVidyo(vidyoConnector);
-      }).catch(() => {
-        console.error("CreateVidyoConnector Failed");
-        this.isLoading = false;
-        this.isConnectionError = true;
-      });
+      if (!this.$rootScope.vidyoConnector) {
+        VC.CreateVidyoConnector({
+          viewId: "renderer",                            // Div ID where the composited video will be rendered, see VidyoConnector.html
+          viewStyle: "VIDYO_CONNECTORVIEWSTYLE_Default", // Visual style of the composited renderer
+          remoteParticipants: 16,                        // Maximum number of participants
+          logFileFilter: "warning all@VidyoConnector info@VidyoClient",
+          logFileName:"",
+          userData:""
+        }).then((vidyoConnector) => {
+          this.$rootScope.vidyoConnector = vidyoConnector;
+          this.connectVidyo(vidyoConnector);
+        }).catch(() => {
+          console.error("CreateVidyoConnector Failed");
+          this.isLoading = false;
+          this.isConnectionError = true;
+        });
+      }
     });
   }
 
@@ -101,12 +116,12 @@ class VideoRendererController {
     console.log('passed in user name',this.$rootScope.user.name);
     console.log('passed in room id',this.$rootScope.user.roomId);
 
-    this.roomId = this.$rootScope.user.roomId || 'demoRoom';
+    this.roomId = this.$rootScope.user.roomId || 'snapShotRoom';
     vidyoConnector.Connect({
       host: "prod.vidyo.io",
-      token: this.$rootScope.user.token,
+      token: "cHJvdmlzaW9uAEhlZ2RlQGU4ZDlhMy52aWR5by5pbwA2MzY3NjE3MDQ2NwAANDUxNjE5NTFlYzM2ZjAwNmRmYWQ4ZjYwMDEzNDY2ODZiZWQ2MGNkMTcxMTEwYjg1ZGVhN2EyYzUxZDQ3Yjk1ZmZmMTA2MDk1MmM1OTAzYzZkZjUwYTY4ZmJlY2FkMmVh",
       displayName: this.$rootScope.user.name,
-      resourceId: this.$rootScope.user.roomId,
+      resourceId: this.roomId,
 
       onSuccess: () => {
         // Connected
@@ -141,10 +156,26 @@ class VideoRendererController {
     });
   }
 
+  closeSnapShotWindow() {
+    this.showSnapshotImage = false;
+  }
+
   receiveMessage(vidyoConnector) {
     vidyoConnector.RegisterMessageEventListener({
       onChatMessageReceived: (participant, chatMessage) => {
-        this.onSendMessage({ id: participant.id, name: participant.name, content: chatMessage.body });
+        try {
+          var jsonObject = JSON.parse(chatMessage.body); // verify that json is valid
+          console.log("did receive a valid Json")
+          if (jsonObject.type === "SnapshotResponse") {
+            this.urlImage = jsonObject.imageURL;
+            this.showSnapshotImage = true;
+            this.onSendMessage({ id: participant.id, name: participant.name, content: "Received Image" });
+          }
+        }
+        catch (e) {
+          console.log("did not receive a valid Json: " + e)
+          this.onSendMessage({ id: participant.id, name: participant.name, content: chatMessage.body });
+        }
       }
     }).then(() => {
       console.log("RegisterParticipantEventListener Success");

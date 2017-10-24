@@ -35,12 +35,12 @@
     <div class="bottom-view">
       <hr>
       <div class="control-button">
-        <button class="btn btn-default btn-control" ng-disabled=1>
-           <img src="{{'/assets/icons/share.png'}}"/>
+        <button class="btn btn-default btn-control" ng-click="$ctrl.requestImage()">
+           <img src="{{'/assets/icons/snapshot.png'}}"/>
         </button>
-        <button class="btn btn-default btn-control" ng-disabled=1>
+        <!-- <button class="btn btn-default btn-control" ng-disabled=1>
             <img src="{{'/assets/icons/PIP.png'}}"/>
-        </button>
+        </button>-->
           <button class="btn btn-default btn-control" ng-click="$ctrl.openChatWindow()">
               <img src="{{'/assets/icons/chat.png'}}"/>
           </button>

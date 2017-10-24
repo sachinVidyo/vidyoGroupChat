@@ -5,12 +5,10 @@
   <div ng-if="!$ctrl.isConnected && !$ctrl.isLoading">
       <p>You left the room</p>
   </div>
-  <div id="renderer">
-    <div ng-if="$ctrl.isLoading">
-        <p>Loading ...</p>
-    </div>
-    <div ng-if="$ctrl.isConnectionError">
-        <p>Connection error</p>
-    </div>
+  <div id="renderer" ng-class="{expandedWidth: !$ctrl.showSnapshotImage}"></div>
+  <div id="snapshot" ng-if="$ctrl.showSnapshotImage" >
+    <p>Snapshot</p>
+    <a href class="close-chat" ng-click="$ctrl.closeSnapShotWindow()"><i class="fa fa-times"></i></a>
+    <img id="snapshotImage" src="{{$ctrl.urlImage}}"/>
   </div>
 </div>
