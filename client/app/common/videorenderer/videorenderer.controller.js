@@ -119,7 +119,7 @@ class VideoRendererController {
     this.roomId = this.$rootScope.user.roomId || 'snapShotRoom';
     vidyoConnector.Connect({
       host: "prod.vidyo.io",
-      token: "cHJvdmlzaW9uAEhlZ2RlQGU4ZDlhMy52aWR5by5pbwA2MzY3NjE3MDQ2NwAANDUxNjE5NTFlYzM2ZjAwNmRmYWQ4ZjYwMDEzNDY2ODZiZWQ2MGNkMTcxMTEwYjg1ZGVhN2EyYzUxZDQ3Yjk1ZmZmMTA2MDk1MmM1OTAzYzZkZjUwYTY4ZmJlY2FkMmVh",
+      token: this.$rootScope.user.token,
       displayName: this.$rootScope.user.name,
       resourceId: this.roomId,
 
@@ -155,6 +155,7 @@ class VideoRendererController {
       console.error("ConnectCall Failed");
     });
   }
+
 
   closeSnapShotWindow() {
     this.showSnapshotImage = false;
